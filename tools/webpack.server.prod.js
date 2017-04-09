@@ -1,16 +1,16 @@
-const webpack = require('webpack')
-const fs =  require('fs')
-const path = require('path')
+const webpack = require('webpack');
+const fs =  require('fs');
+const path = require('path');
 
-const CONFIG = require('./webpack.base')
-const { SERVER_ENTRY, SERVER_OUTPUT, PUBLIC_PATH }  = CONFIG
+const CONFIG = require('./webpack.base');
+const { SERVER_ENTRY, SERVER_OUTPUT, PUBLIC_PATH }  = CONFIG;
 
 function getExternals () {
-  const nodeModules = fs.readdirSync(path.join(process.cwd(), 'node_modules'))
+  const nodeModules = fs.readdirSync(path.join(process.cwd(), 'node_modules'));
   return nodeModules.reduce(function (ext, mod) {
-    ext[mod] = 'commonjs ' + mod
-    return ext
-  }, {})
+    ext[mod] = 'commonjs ' + mod;
+    return ext;
+  }, {});
 }
 
 module.exports = {
@@ -35,13 +35,8 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        query: {
-          presets: ["es2015", "react", "stage-0", "react-optimize"],
-        },
         exclude: /(node_modules)/
-      },
-
-
+      }
     ]
   },
   plugins: [
@@ -56,4 +51,4 @@ module.exports = {
       }
     })
   ]
-}
+};

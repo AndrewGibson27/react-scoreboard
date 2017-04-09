@@ -1,8 +1,8 @@
-const path = require('path')
-const webpack = require('webpack')
-const CONFIG = require('./webpack.base')
+const path = require('path');
+const webpack = require('webpack');
+const CONFIG = require('./webpack.base');
 
-const { CLIENT_ENTRY, CLIENT_OUTPUT, PUBLIC_PATH } = CONFIG
+const { CLIENT_ENTRY, CLIENT_OUTPUT, PUBLIC_PATH } = CONFIG;
 
 module.exports = {
   devtool: 'eval',
@@ -17,8 +17,7 @@ module.exports = {
       'react-dom',
       'react-router',
       'redux',
-      'react-redux',
-      'aphrodite'
+      'react-redux'
     ]
   },
   output: {
@@ -28,29 +27,16 @@ module.exports = {
     path: CLIENT_OUTPUT
   },
   module: {
-    preLoaders: [
-      {
-        // set up standard-loader as a preloader
-        test: /\.jsx?$/,
-        loader: 'standard',
-        exclude: /(node_modules)/
-      }
-    ],
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel',
-        exclude: /(node_modules|server)/,
-        query: {
-          cacheDirectory: true,
-          presets: ["es2015", "react", "stage-0"]
-        }
+        loaders: ['babel', 'eslint'],
+        exclude: /(node_modules|server)/
       },
     ]
   },
-  standard: {
-    // config options to be passed through to standard e.g.
-    parser: 'babel-eslint'
+  eslint: {
+    emitWarning: true
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -58,7 +44,7 @@ module.exports = {
       '__DEV__': true
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', 2),
-    new webpack.NoErrorsPlugin()
-  ],
-}
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', 2)
+    //new webpack.NoErrorsPlugin()
+  ]
+};

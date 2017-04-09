@@ -1,4 +1,4 @@
-import * as types from '../../constants'
+import * as types from '../../constants';
 
 const initialState = {
   lastFetched: null,
@@ -6,27 +6,32 @@ const initialState = {
   error: null,
   title: '',
   content: ''
-}
+};
 
-export default function currentPost (state = initialState, action) {
+export default function currentPost(state = initialState, action) {
   switch (action.type) {
     case types.LOAD_POST_REQUEST:
-      return { ...state,
+      return {
+        ...state,
         isLoading: true,
-        error: null}
+        error: null
+      };
     case types.LOAD_POST_SUCCESS:
-      return { ...state,
+      return {
+        ...state,
         title: action.payload.title,
         content: action.payload.content,
         lastFetched: action.meta.lastFetched,
-        isLoading: false}
+        isLoading: false
+      };
     case types.LOAD_POST_FAILURE:
-      return { ...state,
-        error: action.payload }
+      return {
+        ...state,
+        error: action.payload
+      };
     default:
-      return state
+      return state;
   }
 }
 
-// Example of a co-located selector
-export const selectCurrentPost = state => state.currentPost
+export const selectCurrentPost = state => state.currentPost;

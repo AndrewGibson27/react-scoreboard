@@ -1,9 +1,9 @@
-const path = require('path')
-const webpack = require('webpack')
-const AssetsPlugin = require('assets-webpack-plugin')
+const path = require('path');
+const webpack = require('webpack');
+const AssetsPlugin = require('assets-webpack-plugin');
 
-const CONFIG = require('./webpack.base')
-const { CLIENT_ENTRY, CLIENT_OUTPUT, PUBLIC_PATH } = CONFIG
+const CONFIG = require('./webpack.base');
+const { CLIENT_ENTRY, CLIENT_OUTPUT, PUBLIC_PATH } = CONFIG;
 
 module.exports = {
   devtool: false,
@@ -14,8 +14,7 @@ module.exports = {
       'react-dom',
       'react-router',
       'redux',
-      'react-redux',
-      'aphrodite'
+      'react-redux'
     ],
   },
   output: {
@@ -62,4 +61,4 @@ module.exports = {
       }
     ]
   }
-}
+};
