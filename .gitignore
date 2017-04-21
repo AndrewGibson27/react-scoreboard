@@ -36,3 +36,7 @@ assets.json
 public/assets
 .nyc_output
 coverage
+
+# Google APIs
+client_secret.json
+sheets.googleapis.com-react-scoreboard-oauth-other.json

@@ -60,5 +60,5 @@ if (module.hot) {
   module.hot.accept('../common/routes/root', () => {
     unsubscribeHistory();
     setTimeout(render);
-  })
+  });
 }

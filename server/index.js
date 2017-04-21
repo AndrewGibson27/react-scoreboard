@@ -56,7 +56,7 @@ export const createServer = (config) => {
   }
 
   app.use(express.static('public'));
-  app.use('/api/v0/posts', require('./api/posts'));
+  app.use('/api', require('./api/posts'));
 
 
   app.get('*', (req, res) => {
@@ -70,7 +70,7 @@ export const createServer = (config) => {
     const history = createMemoryHistory(req.originalUrl);
     const { dispatch } = store;
 
-    match({ routes, history}, (err, redirectLocation, renderProps) => {
+    match({ routes, history }, (err, redirectLocation, renderProps) => {
       if (err) {
         console.error(err);
         return res.status(500).send('Internal server error');
@@ -82,13 +82,10 @@ export const createServer = (config) => {
 
       const { components } = renderProps;
 
-      // Define locals to be provided to all lifecycle hooks:
       const locals = {
         path: renderProps.location.pathname,
         query: renderProps.location.query,
         params: renderProps.params,
-
-        // Allow lifecycle hooks to dispatch Redux actions:
         dispatch
       };
 
@@ -132,9 +129,6 @@ export const createServer = (config) => {
   const server = http.createServer(app);
 
 
-  // Heroku dynos automatically timeout after 30s. Set our
-  // own timeout here to force sockets to close before that.
-  // https://devcenter.heroku.com/articles/request-timeout
   if (config.timeout) {
     server.setTimeout(config.timeout, (socket) => {
       const message = `Timeout of ${config.timeout}ms exceeded`;
