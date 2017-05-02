@@ -30,13 +30,10 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: ['babel', 'eslint'],
+        loaders: 'babel',
         exclude: /(node_modules|server)/
       },
     ]
-  },
-  eslint: {
-    emitWarning: true
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -44,7 +41,7 @@ module.exports = {
       '__DEV__': true
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', 2)
-    //new webpack.NoErrorsPlugin()
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', 2),
+    new webpack.NoErrorsPlugin()
   ]
 };
