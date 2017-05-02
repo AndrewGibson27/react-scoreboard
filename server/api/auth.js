@@ -2,7 +2,6 @@
 
 import fs from 'fs';
 import readline from 'readline';
-import google from 'googleapis';
 import googleAuth from 'google-auth-library';
 
 import config from '../config';
@@ -11,9 +10,8 @@ const {
   googleScopes: GOOGLE_SCOPES,
   googleTokenDir: GOOGLE_TOKEN_DIR,
   googleTokenPath: GOOGLE_TOKEN_PATH,
-  googleClientSecretDir: GOOGLE_CLIENT_SECRET_DIR,
   googleClientSecretPath: GOOGLE_CLIENT_SECRET_PATH,
-  nodeEnv: NODE_ENV
+  nodeEnv: NODE_ENV,
 } = config;
 
 export default function initAuth(callback) {

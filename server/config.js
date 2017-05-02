@@ -15,7 +15,8 @@ const config = {
   googleTokenPath: path.join(process.cwd(), 'sheets.googleapis.com-react-scoreboard-oauth-other.json'),
   googleClientSecretDir: process.cwd(),
   googleClientSecretPath: path.join(process.cwd(), 'client_secret.json'),
-  scraperInterval: 60000
+  googleSpreadsheetKey: '1qn7Kxu4vnwWeP6mxJrCc8vAVHg6u4pZbFcDn2O9qtqc',
+  scraperInterval: '* * * * *',
 };
 
 module.exports = config;
