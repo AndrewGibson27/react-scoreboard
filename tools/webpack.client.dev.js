@@ -27,12 +27,12 @@ module.exports = {
     path: CLIENT_OUTPUT
   },
   module: {
-    loaders: [
+    loader: [
       {
         test: /\.js$/,
         loaders: 'babel',
         exclude: /(node_modules|server)/
-      },
+      }
     ]
   },
   plugins: [
