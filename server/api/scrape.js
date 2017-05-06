@@ -5,6 +5,7 @@ import fs from 'fs';
 
 import initAuth from './auth';
 import config from '../config';
+import logger from '../log';
 
 const {
   scraperInterval: SCRAPER_INTERVAL,
@@ -57,7 +58,7 @@ function compareScores(oldScores, newScores) {
 function writeScoresFile(newScores) {
   fs.writeFile(SCORES_FILE_PATH, JSON.stringify(newScores), (err) => {
     if (err) {
-      // TODO: Deal with error
+      logger.log('info', err);
     }
   });
 }
@@ -132,8 +133,9 @@ function getScoresFromSpreadsheet(auth) {
     range: 'A1:H',
     spreadsheetId: GOOGLE_SPREADSHEET_KEY,
   }, (err, data) => {
-    if (!err) {
-      // TODO: address error
+    if (err) {
+      logger.log('info', err);
+    } else {
       buildScoresData(data);
     }
   });
