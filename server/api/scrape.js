@@ -1,6 +1,5 @@
 import schedule from 'node-schedule';
 import google from 'googleapis';
-import path from 'path';
 import fs from 'fs';
 
 import initAuth from './auth';
@@ -10,11 +9,8 @@ import logger from '../log';
 const {
   scraperInterval: SCRAPER_INTERVAL,
   googleSpreadsheetKey: GOOGLE_SPREADSHEET_KEY,
+  scoresFilePath,
 } = config;
-
-const SCORES_FILE_NAME = 'scores.json';
-const SCORES_FILE_DIR = path.join(process.cwd(), 'build');
-const SCORES_FILE_PATH = path.join(SCORES_FILE_DIR, SCORES_FILE_NAME);
 
 function checkForScoreUpdate(oldScore, newScore) {
   let didUpdate = false;
@@ -56,7 +52,7 @@ function compareScores(oldScores, newScores) {
 }
 
 function writeScoresFile(newScores) {
-  fs.writeFile(SCORES_FILE_PATH, JSON.stringify(newScores), (err) => {
+  fs.writeFile(scoresFilePath, JSON.stringify(newScores), (err) => {
     if (err) {
       logger.log('info', err);
     }
@@ -64,7 +60,7 @@ function writeScoresFile(newScores) {
 }
 
 function getExistingScores(newScores) {
-  fs.readFile(SCORES_FILE_PATH, (err, data) => {
+  fs.readFile(scoresFilePath, (err, data) => {
     const oldScores = JSON.parse(data);
     const newScoresCompared = compareScores(oldScores, newScores);
 
@@ -91,7 +87,7 @@ function ensureProperScoresTypes(scores) {
 function checkIfScoresFileExists(newScores) {
   const newScoresTyped = ensureProperScoresTypes(newScores);
 
-  fs.access(SCORES_FILE_PATH, (err) => {
+  fs.access(scoresFilePath, (err) => {
     if (err) {
       writeScoresFile(newScoresTyped);
     } else {

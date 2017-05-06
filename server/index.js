@@ -56,8 +56,7 @@ export const createServer = (config) => {
   }
 
   app.use(express.static('public'));
-  app.use('/api', require('./api/posts'));
-
+  app.use('/api', require('./api/scores').default);
 
   app.get('*', (req, res) => {
     const store = configureStore({

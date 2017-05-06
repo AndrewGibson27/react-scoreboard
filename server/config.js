@@ -17,6 +17,7 @@ const config = {
   googleClientSecretPath: path.join(process.cwd(), 'client_secret.json'),
   googleSpreadsheetKey: '1qn7Kxu4vnwWeP6mxJrCc8vAVHg6u4pZbFcDn2O9qtqc',
   scraperInterval: '* * * * *',
+  scoresFilePath: path.join(process.cwd(), 'build', 'scores.json'),
 };
 
 module.exports = config;
