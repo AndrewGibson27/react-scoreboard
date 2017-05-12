@@ -16,20 +16,30 @@ function readScoresFile(callback, errCallback) {
   });
 }
 
-router.get('/scores', (req, res) => {
-  const noScores = [];
+function getOneScore(scores, id) {
+  return scores.find(score => score.id === id) || 'not found';
+}
 
+router.get('/scores', (req, res) => {
   readScoresFile((data) => {
     res.status(200).json(JSON.parse(data));
   }, () => {
-    res.status(200).json(noScores);
+    res.status(200).json([]);
   });
 });
 
 router.get('/score/:id', (req, res) => {
-  setTimeout(() => {
-    res.status(200).json();
-  }, 300);
+  readScoresFile((data) => {
+    const score = getOneScore(JSON.parse(data), req.params.id);
+
+    if (score === 'not found') {
+      res.status(404).send('Record not found');
+    } else {
+      res.status(200).json(score);
+    }
+  }, () => {
+    res.status(200).json([]);
+  });
 });
 
 export default router;
