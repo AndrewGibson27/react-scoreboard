@@ -26,11 +26,12 @@ module.exports = {
     path: CLIENT_OUTPUT,
   },
   module: {
-    loader: [
+    loaders: [
       {
         test: /\.js$/,
-        loaders: 'babel',
+        loader: 'babel',
         exclude: /(node_modules|server)/,
+        presets: ['es2015', 'react', 'stage-0'],
       },
     ],
   },
