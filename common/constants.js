@@ -1,23 +1,6 @@
 /* scoresList
 
 // state
-const scoresList = {
-  lastUpdated: '',
-  data: [
-    {
-      id: '0',
-      homeTeam: '',
-      awayTeam: '',
-      homeScore: 0,
-      awayScore: 0,
-      quarter: 1,
-      final: false,
-      timeLeft: '10:03',
-      didJustUpdate: false
-    }
-  ]
-};
-
 // actions
 {
   type: 'UPDATE_SCORES',
@@ -52,11 +35,6 @@ const scoreDetail = {
 */
 
 // Posts
-export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
-export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
-export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
-
-// Single Post
-export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
-export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
-export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
+export const LOAD_SCORES_REQUEST = 'LOAD_SCORES_REQUEST';
+export const LOAD_SCORES_SUCCESS = 'LOAD_SCORES_SUCCESS';
+export const LOAD_SCORES_FAILURE = 'LOAD_SCORES_FAILURE';
