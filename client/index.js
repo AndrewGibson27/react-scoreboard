@@ -28,7 +28,7 @@ const render = () => {
     );
   });
 
-  return browserHistory.listen(location => {
+  return browserHistory.listen((location) => {
     match({ routes, location }, (error, redirectLocation, renderProps) => {
       if (error) {
         console.log(error);
