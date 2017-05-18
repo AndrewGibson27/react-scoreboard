@@ -61,10 +61,14 @@ function writeScoresFile(newScores) {
 
 function getExistingScores(newScores) {
   fs.readFile(scoresFilePath, (err, data) => {
-    const oldScores = JSON.parse(data);
-    const newScoresCompared = compareScores(oldScores, newScores);
+    if (err) {
+      logger.log('info', err);
+    } else {
+      const oldScores = JSON.parse(data);
+      const newScoresCompared = compareScores(oldScores, newScores);
 
-    writeScoresFile(newScoresCompared);
+      writeScoresFile(newScoresCompared);
+    }
   });
 }
 
