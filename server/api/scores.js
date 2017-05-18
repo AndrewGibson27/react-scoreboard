@@ -2,6 +2,7 @@ import { Router } from 'express';
 import fs from 'fs';
 
 import config from '../config';
+import logger from '../log';
 
 const { scoresFilePath } = config;
 const router = new Router();
@@ -32,8 +33,10 @@ router.get('/scores', (req, res) => {
       lastUpdated: getTimestamp(),
     });
   }, (err) => {
-    res.status(404).json({
-      error: err,
+    // TODO: Distinguish error types
+    logger.log('info', err);
+    res.status(500).json({
+      error: 'unexpected error',
     });
   });
 });
@@ -53,8 +56,9 @@ router.get('/score/:id', (req, res) => {
       });
     }
   }, (err) => {
-    res.status(200).json({
-      error: err,
+    logger.log('info', err);
+    res.status(500).json({
+      error: 'unexpected error',
     });
   });
 });

@@ -20,10 +20,10 @@ export default function loadScores() {
           lastUpdated: res.data.lastUpdated,
         });
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch({
           type: LOAD_SCORES_FAILURE,
-          error,
+          error: true,
         });
       });
   };

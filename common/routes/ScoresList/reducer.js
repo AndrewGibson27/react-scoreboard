@@ -4,7 +4,7 @@ const initialState = {
   data: [],
   lastUpdated: null,
   isLoading: false,
-  error: null,
+  error: false,
 };
 
 export default function scores(state = initialState, action) {
@@ -13,7 +13,7 @@ export default function scores(state = initialState, action) {
       return {
         ...state,
         isLoading: true,
-        error: null,
+        error: false,
       };
     case types.LOAD_SCORES_SUCCESS:
       return {
@@ -25,7 +25,8 @@ export default function scores(state = initialState, action) {
     case types.LOAD_SCORES_FAILURE:
       return {
         ...state,
-        error: action.error,
+        isLoading: false,
+        error: true,
       };
     default:
       return state;
