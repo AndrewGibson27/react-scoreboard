@@ -1,7 +1,11 @@
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
+
 import { provideHooks } from 'redial';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import ReactGridLayout from 'react-grid-layout';
 
 import ScoresListItem from '../components/ScoresListItem';
 import loadScores from '../actions';

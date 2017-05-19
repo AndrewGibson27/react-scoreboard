@@ -53,6 +53,7 @@
     "opn": "^4.0.2",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
+    "react-grid-layout": "^0.14.6",
     "react-helmet": "^3.1.0",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0",
@@ -70,13 +71,15 @@
     "babel-plugin-istanbul": "^2.0.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
+    "css-loader": "^0.28.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "mocha": "^3.0.2",
-    "nyc": "^10.0.0"
+    "nyc": "^10.0.0",
+    "style-loader": "^0.17.0"
   },
   "standard": {
     "parser": "babel-eslint"
