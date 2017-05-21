@@ -1,4 +1,3 @@
-import path from 'path';
 import http from 'http';
 import express from 'express';
 import helmet from 'helmet';
@@ -17,12 +16,12 @@ import Helm from 'react-helmet';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import { ServerStyleSheet } from 'styled-components';
 
 import DefaultServerConfig from './config';
 import webpackConfig from '../tools/webpack.client.dev';
 import { compileDev, startDev } from '../tools/dx';
 import { configureStore } from '../common/store';
-import reducer from '../common/createReducer';
 import createRoutes from '../common/routes/root';
 
 export const createServer = (config) => {
@@ -97,8 +96,10 @@ export const createServer = (config) => {
             </Provider>
           );
 
-          const html = ReactDOM.renderToString(InitialView);
           const head = Helm.rewind();
+          const sheet = new ServerStyleSheet();
+          const html = ReactDOM.renderToString(sheet.collectStyles(InitialView));
+          const css = sheet.getStyleTags();
 
           res.status(200).send(`
             <!DOCTYPE html>
@@ -111,6 +112,7 @@ export const createServer = (config) => {
                 <link rel="shortcut icon" href="/favicon.ico">
                 ${head.meta.toString()}
                 ${head.link.toString()}
+                ${css}
               </head>
               <body>
                 <div id="root">${html}</div>
