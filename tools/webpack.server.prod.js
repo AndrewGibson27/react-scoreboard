@@ -1,14 +1,15 @@
 const webpack = require('webpack');
-const fs =  require('fs');
+const fs = require('fs');
 const path = require('path');
 
 const CONFIG = require('./webpack.base');
-const { SERVER_ENTRY, SERVER_OUTPUT, PUBLIC_PATH }  = CONFIG;
 
-function getExternals () {
+const { SERVER_ENTRY, SERVER_OUTPUT } = CONFIG;
+
+function getExternals() {
   const nodeModules = fs.readdirSync(path.join(process.cwd(), 'node_modules'));
-  return nodeModules.reduce(function (ext, mod) {
-    ext[mod] = 'commonjs ' + mod;
+  return nodeModules.reduce((ext, mod) => {
+    ext[mod] = `commonjs ${mod}`;
     return ext;
   }, {});
 }
@@ -19,37 +20,36 @@ module.exports = {
   entry: SERVER_ENTRY,
   output: {
     path: SERVER_OUTPUT,
-    filename: 'server.js'
+    filename: 'server.js',
   },
   externals: getExternals(),
   node: {
     __filename: true,
-    __dirname: true
+    __dirname: true,
   },
   module: {
     loaders: [
       {
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /(node_modules)/
+        exclude: /(node_modules)/,
       },
-
-      {
-        test: /\.css$/,
-        loader: 'css-loader',
-      },
-    ]
+    ],
   },
   plugins: [
     new webpack.BannerPlugin(
-        'require("source-map-support").install();',
-        { raw: true, entryOnly: false }
+      'require("source-map-support").install();',
+      { raw: true, entryOnly: false },
     ),
     new webpack.IgnorePlugin(/\.(css|less|scss|svg|png|jpe?g|png)$/),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false
-      }
-    })
-  ]
+        warnings: false,
+      },
+    }),
+  ],
 };
