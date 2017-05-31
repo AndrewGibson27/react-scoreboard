@@ -3,7 +3,9 @@ import { Link } from 'react-router';
 
 const ScoresListItem = ({ score }) => (
   <div>
-    <h3><Link to={`/score/${score.id}`}> {score.homeScore} </Link></h3>
+    <h3>
+      <Link to={`/scores/${score.id}`}>Test</Link>
+    </h3>
   </div>
 );
 
