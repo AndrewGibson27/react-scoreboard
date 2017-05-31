@@ -4,17 +4,23 @@ import axios from 'axios';
 import createReducer from './createReducer';
 
 export function configureStore(initialState) {
-  let store = createStore(createReducer(), initialState, compose(
-    applyMiddleware(
-      thunk.withExtraArgument({ axios })
-    ),
+  const store = createStore(
+    createReducer({
+      hydrateState: initialState,
+    }),
 
-    process.env.NODE_ENV === 'development' &&
-    typeof window === 'object' &&
-    typeof window.devToolsExtension !== 'undefined'
-      ? window.devToolsExtension()
-      : f => f
-  ));
+    initialState,
+
+    compose(
+      applyMiddleware(thunk.withExtraArgument({ axios })),
+
+      process.env.NODE_ENV === 'development' &&
+      typeof window === 'object' &&
+      typeof window.devToolsExtension !== 'undefined'
+        ? window.devToolsExtension()
+        : f => f
+    ),
+  );
 
   store.asyncReducers = {};
 
@@ -29,5 +35,7 @@ export function configureStore(initialState) {
 
 export function injectAsyncReducer(store, name, asyncReducer) {
   store.asyncReducers[name] = asyncReducer;
-  store.replaceReducer(createReducer(store.asyncReducers));
+  store.replaceReducer(createReducer({
+    asyncReducers: store.asyncReducers,
+  }));
 }
