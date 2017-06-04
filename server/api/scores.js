@@ -45,7 +45,7 @@ router.get('/score/:id', (req, res) => {
   readScoresFile((data) => {
     const score = getOneScore(JSON.parse(data), req.params.id);
 
-    if (score === 'not found') {
+    if (score.id === 'not found') {
       res.status(404).json({
         error: 'record not found',
       });
