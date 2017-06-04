@@ -40,18 +40,13 @@ const render = () => {
         path: renderProps.location.pathname,
         query: renderProps.location.query,
         params: renderProps.params,
-        dispatch
+        dispatch,
       };
 
-      if (window.INITIAL_STATE) {
-        delete window.INITIAL_STATE;
-      } else {
-        trigger('fetch', components, locals);
-      }
-
+      trigger('fetch', components, locals);
       trigger('defer', components, locals);
-    })
-  })
+    });
+  });
 };
 
 const unsubscribeHistory = render();
