@@ -8,14 +8,22 @@ export default function createRoutes(store) {
 
     getComponents(location, cb) {
       require.ensure([
-        './containers/ScoresList',
+        './containers/ScoreList',
         './reducer',
       ], (require) => {
-        const ScoresList = require('./containers/ScoresList').default;
+        const ScoreListPage = require('./containers/ScoreList').default;
         const scoresReducer = require('./reducer').default;
 
         injectAsyncReducer(store, 'scores', scoresReducer);
-        cb(null, ScoresList);
+        cb(null, ScoreListPage);
+      });
+    },
+
+    getChildRoutes(location, cb) {
+      require.ensure([], (require) => {
+        cb(null, [
+          require('../Score').default(store),
+        ]);
       });
     },
   };

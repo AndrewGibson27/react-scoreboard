@@ -12,7 +12,7 @@ export default function createRoutes(store) {
     getChildRoutes(location, cb) {
       require.ensure([], (require) => {
         cb(null, [
-          require('./ScoresList').default(store),
+          require('./ScoreList').default(store),
           require('./NotFound').default,
         ]);
       });

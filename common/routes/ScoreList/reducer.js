@@ -19,6 +19,7 @@ export default function scores(state = initialState, action) {
       return {
         ...state,
         data: action.data,
+        error: false,
         lastUpdated: action.lastUpdated,
         isLoading: false,
       };

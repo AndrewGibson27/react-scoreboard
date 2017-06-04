@@ -5,9 +5,7 @@ import createReducer from './createReducer';
 
 export function configureStore(initialState) {
   const store = createStore(
-    createReducer({
-      hydrateState: initialState,
-    }),
+    createReducer(),
 
     initialState,
 
@@ -35,7 +33,5 @@ export function configureStore(initialState) {
 
 export function injectAsyncReducer(store, name, asyncReducer) {
   store.asyncReducers[name] = asyncReducer;
-  store.replaceReducer(createReducer({
-    asyncReducers: store.asyncReducers,
-  }));
+  store.replaceReducer(createReducer(store.asyncReducers));
 }
