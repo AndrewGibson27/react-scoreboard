@@ -130,7 +130,7 @@ function getScoresFromSpreadsheet(auth) {
 
   sheets.spreadsheets.values.get({
     auth,
-    range: 'A1:H',
+    range: 'A1:J',
     spreadsheetId: GOOGLE_SPREADSHEET_KEY,
   }, (err, data) => {
     if (err) {
