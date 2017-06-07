@@ -41,6 +41,7 @@ const render = () => {
         query: renderProps.location.query,
         params: renderProps.params,
         dispatch,
+        store,
       };
 
       trigger('fetch', components, locals);
