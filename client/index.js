@@ -11,7 +11,6 @@ import { configureStore } from '../common/store';
 
 const initialState = window.INITIAL_STATE || {};
 const store = configureStore(initialState);
-const { dispatch } = store;
 
 const render = () => {
   const { pathname, search, hash } = window.location;
@@ -24,7 +23,7 @@ const render = () => {
       <Provider store={store}>
         <Router routes={routes} history={browserHistory} key={Math.random()} />
       </Provider>,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
   });
 
@@ -40,7 +39,6 @@ const render = () => {
         path: renderProps.location.pathname,
         query: renderProps.location.query,
         params: renderProps.params,
-        dispatch,
         store,
       };
 
