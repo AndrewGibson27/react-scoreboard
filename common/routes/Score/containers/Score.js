@@ -6,7 +6,7 @@ import loadScore from '../actions';
 import { selectCurrentScore } from '../reducer';
 
 const redial = {
-  fetch: ({ dispatch, params: { id } }) => dispatch(loadScore(id)),
+  fetch: ({ store: { dispatch }, params: { id } }) => dispatch(loadScore(id)),
 };
 
 const mapStateToProps = state => (

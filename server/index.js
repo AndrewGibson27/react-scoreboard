@@ -84,7 +84,7 @@ export const createServer = (config) => {
         path: renderProps.location.pathname,
         query: renderProps.location.query,
         params: renderProps.params,
-        dispatch
+        store,
       };
 
       trigger('fetch', components, locals)
