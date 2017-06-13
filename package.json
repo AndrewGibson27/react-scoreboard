@@ -7,7 +7,7 @@
     "test:watch": "npm test -- --watch",
     "coverage": "nyc npm test",
     "start": "cross-env NODE_ENV=development node -r \"babel-register\" ./server",
-    "start:prod": "cross-env NODE_ENV=production node ./build/server.js",
+    "start:prod": "cross-env NODE_ENV=production node ./build/server.js && npm run scrape:prod",
     "heroku-postbuild": "npm run build",
     "scrape": "cross-env NODE_ENV=development node -r \"babel-register\" ./server/api/scrape",
     "scrape:prod": "cross-env NODE_ENV=production node ./build/scrape.js",
