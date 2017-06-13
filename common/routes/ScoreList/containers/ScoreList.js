@@ -9,7 +9,7 @@ import ScoreListItem from '../components/ScoreListItem';
 import loadScores from '../actions';
 import { selectScores } from '../reducer';
 
-const INTERVAL = 10000;
+const INTERVAL = 30000;
 
 function shouldFetchScores({ getState }) {
   return getState().scores.data.length === 0;
