@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 const ScoreListItem = ({ score }) => (
-  <div>
+  <div className={score.didJustUpdate ? 'updated' : ''}>
     <div>
       <p>{score.quarter}</p>
       {score.isFinal && <p>Final</p>}
