@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import Grid from 'grid-styled';
+import styled from 'styled-components';
+import { Flex, Box } from 'grid-styled';
 
 import ScoreListItem from '../components/ScoreListItem';
 import loadScores from '../actions';
@@ -45,19 +46,19 @@ class ScoreListPage extends Component {
     const scores = this.props.scores;
 
     return (
-      <div>
+      <Wrapper>
         <Helmet title="React Scoreboard" />
         {!scores.isLoading &&
-          <section>
+          <Flex>
             {scores.data.map(score =>
-              <Grid lg={1/6} key={score.id}>
+              <Box width={1/6} px={0}>
                 <ScoreListItem score={score} />
-              </Grid>
+              </Box>
             )}
-          </section>}
+          </Flex>}
         {scores.isLoading && <p>Loading...</p>}
         {this.props.children}
-      </div>
+      </Wrapper>
     );
   }
 }
