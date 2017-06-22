@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import styled from 'styled-components';
 
 const ScoreListItem = ({ score }) => (
-  <div className={score.didJustUpdate ? 'updated' : ''}>
+  <div style={{'background': 'blue'}}>
     <div>
       <p>{score.quarter}</p>
       {score.isFinal && <p>Final</p>}

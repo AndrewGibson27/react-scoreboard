@@ -43,22 +43,28 @@ class ScoreListPage extends Component {
   }
 
   render() {
-    const scores = this.props.scores;
+    const { scores } = this.props;
+    const boxWidths = [1/2, 1/3, 1/4];
 
     return (
-      <Wrapper>
+      <div>
         <Helmet title="React Scoreboard" />
         {!scores.isLoading &&
-          <Flex>
+          <Flex wrap>
             {scores.data.map(score =>
-              <Box width={1/6} px={0}>
+              <Box
+                width={boxWidths}
+                key={score.id}
+                mt={20}
+                px={20}
+              >
                 <ScoreListItem score={score} />
               </Box>
             )}
           </Flex>}
         {scores.isLoading && <p>Loading...</p>}
         {this.props.children}
-      </Wrapper>
+      </div>
     );
   }
 }

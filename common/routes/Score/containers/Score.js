@@ -2,6 +2,7 @@ import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Flex, Box } from 'grid-styled';
 
 import loadScore from '../actions';
 import { selectCurrentScore } from '../reducer';
@@ -15,10 +16,27 @@ const mapStateToProps = state => (
 );
 
 const ScorePage = ({ currentScore }) => (
-  <div>
+  <Flex wrap>
+    <Box
+      width={[1/1, 1/2]}
+      key={currentScore.id}
+      mt={20}
+      px={20}
+    >
+      
+    </Box>
+    <Box
+      width={[1/1, 1/2]}
+      key={currentScore.id}
+      mt={20}
+      px={20}
+    >
+
+    </Box>
+
     {currentScore.isLoading && <p>Loading...</p>}
     {!currentScore.isLoading && <p>{currentScore.data.id}</p>}
-  </div>
+  </Flex>
 );
 
 ScorePage.propTypes = {
