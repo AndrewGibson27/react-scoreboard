@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import { Flex, Box } from 'grid-styled';
 
 import ScoreListItem from '../components/ScoreListItem';
 import loadScores from '../actions';
@@ -44,24 +43,16 @@ class ScoreListPage extends Component {
 
   render() {
     const { scores } = this.props;
-    const boxWidths = [1/2, 1/3, 1/4];
 
     return (
       <div>
         <Helmet title="React Scoreboard" />
         {!scores.isLoading &&
-          <Flex wrap>
-            {scores.data.map(score =>
-              <Box
-                width={boxWidths}
-                key={score.id}
-                mt={20}
-                px={20}
-              >
-                <ScoreListItem score={score} />
-              </Box>
-            )}
-          </Flex>}
+          scores.data.map(score =>
+            <div key={score.id}>
+              <ScoreListItem score={score} />
+            </div>
+          )}
         {scores.isLoading && <p>Loading...</p>}
         {this.props.children}
       </div>
