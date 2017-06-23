@@ -2,7 +2,6 @@ import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Flex, Box } from 'grid-styled';
 
 import loadScore from '../actions';
 import { selectCurrentScore } from '../reducer';
@@ -16,40 +15,36 @@ const mapStateToProps = state => (
 );
 
 const ScorePage = ({ currentScore }) => (
-  <Flex wrap>
-    <Box
-      width={[1/1, 1/2]}
-      key={currentScore.id}
-      mt={20}
-      px={20}
-    >
-      
-    </Box>
-    <Box
-      width={[1/1, 1/2]}
-      key={currentScore.id}
-      mt={20}
-      px={20}
-    >
-
-    </Box>
-
+  <div>
+    {!currentScore.isLoading &&
+      <table>
+        <tr>
+          <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th>{currentScore.awayTeam}</th>
+              <th>{currentScore.homeTeam}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>High scorer</td>
+              <td>{currentScore.awayHighScorer}</td>
+              <td>{currentScore.homeHighScorer}</td>
+            </tr>
+          </tbody>
+        </tr>
+      </table>}
     {currentScore.isLoading && <p>Loading...</p>}
-    {!currentScore.isLoading && <p>{currentScore.data.id}</p>}
-  </Flex>
+  </div>
 );
 
 ScorePage.propTypes = {
   currentScore: PropTypes.shape({
     homeTeam: PropTypes.string.isRequired,
     awayTeam: PropTypes.string.isRequired,
-    homeScore: PropTypes.number.isRequired,
-    awayScore: PropTypes.number.isRequired,
     homeHighScorer: PropTypes.string.isRequired,
     awayHighScorer: PropTypes.string.isRequired,
-    quarter: PropTypes.string.isRequired,
-    timeLeft: PropTypes.string.isRequired,
-    final: PropTypes.bool.isRequired,
   }).isRequired,
 };
 
