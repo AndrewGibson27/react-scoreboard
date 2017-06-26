@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 
 import loadScore from '../actions';
 import { selectCurrentScore } from '../reducer';
+import {
+  ErrorMessage,
+  Loader,
+} from '../../../sharedStyles';
 
 const redial = {
   fetch: ({ store: { dispatch }, params: { id } }) => dispatch(loadScore(id)),
@@ -16,35 +20,38 @@ const mapStateToProps = state => (
 
 const ScorePage = ({ currentScore }) => (
   <div>
-    {!currentScore.isLoading &&
-      <table>
-        <tr>
+    {currentScore.error &&
+      <ErrorMessage>
+        No scores are available at this time.
+      </ErrorMessage>}
+
+    {!currentScore.error &&
+      <Loader isLoading={currentScore.isLoading}>
+        <table>
           <thead>
             <tr>
               <th>&nbsp;</th>
-              <th>{currentScore.awayTeam}</th>
-              <th>{currentScore.homeTeam}</th>
+              <th>{currentScore.data.awayTeam}</th>
+              <th>{currentScore.data.homeTeam}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>High scorer</td>
-              <td>{currentScore.awayHighScorer}</td>
-              <td>{currentScore.homeHighScorer}</td>
+              <td>{currentScore.data.awayHighScorer}</td>
+              <td>{currentScore.data.homeHighScorer}</td>
             </tr>
           </tbody>
-        </tr>
-      </table>}
-    {currentScore.isLoading && <p>Loading...</p>}
+        </table>
+      </Loader>}
   </div>
 );
 
 ScorePage.propTypes = {
   currentScore: PropTypes.shape({
-    homeTeam: PropTypes.string.isRequired,
-    awayTeam: PropTypes.string.isRequired,
-    homeHighScorer: PropTypes.string.isRequired,
-    awayHighScorer: PropTypes.string.isRequired,
+    data: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    error: PropTypes.bool.isRequired,
   }).isRequired,
 };
 

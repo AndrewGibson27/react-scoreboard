@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 
+const Item = styled.div`
+  padding: 10px;
+  background-color: #DCDCDC;
+  width: 200px;
+`;
+
 const ScoreListItem = ({ score }) => (
-  <div style={{'background': 'blue'}}>
+  <Item>
     <div>
       <p>{score.quarter}</p>
       {score.isFinal && <p>Final</p>}
@@ -22,8 +28,8 @@ const ScoreListItem = ({ score }) => (
         </tr>
       </tbody>
     </table>
-    <Link to={`/scores/${score.id}`}>Test</Link>
-  </div>
+    <Link to={`/scores/${score.id}`}>Details</Link>
+  </Item>
 );
 
 ScoreListItem.propTypes = {

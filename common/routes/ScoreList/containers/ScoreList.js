@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
+import Slider from 'react-slick';
 
 import ScoreListItem from '../components/ScoreListItem';
 import loadScores from '../actions';
 import { selectScores } from '../reducer';
+import {
+  ErrorMessage,
+  Loader,
+} from '../../../sharedStyles';
 
 const INTERVAL = 30000;
 
@@ -43,17 +47,35 @@ class ScoreListPage extends Component {
 
   render() {
     const { scores } = this.props;
+    const settings = {
+      dots: false,
+      draggable: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 6,
+      slidesToScroll: 1,
+    };
 
     return (
       <div>
         <Helmet title="React Scoreboard" />
-        {!scores.isLoading &&
-          scores.data.map(score =>
-            <div key={score.id}>
-              <ScoreListItem score={score} />
-            </div>
-          )}
-        {scores.isLoading && <p>Loading...</p>}
+
+        {scores.error &&
+          <ErrorMessage>
+            No scores are available at this time.
+          </ErrorMessage>}
+
+        {!scores.error &&
+          <Loader isLoading={scores.isLoading}>
+            <Slider {...settings}>
+              {scores.data.map(score =>
+                <div key={score.id}>
+                  <ScoreListItem score={score} />
+                </div>
+              )}
+            </Slider>
+          </Loader>}
+
         {this.props.children}
       </div>
     );
