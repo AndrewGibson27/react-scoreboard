@@ -3,7 +3,6 @@ import * as types from '../../constants';
 const initialState = {
   error: false,
   isLoading: false,
-  lastUpdated: '',
   data: {},
 };
 
@@ -20,7 +19,6 @@ export default function currentScore(state = initialState, action) {
         ...state,
         data: action.data,
         error: false,
-        lastUpdated: action.lastUpdated,
         isLoading: false,
       };
     case types.LOAD_SCORE_FAILURE:
