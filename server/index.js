@@ -118,6 +118,7 @@ export const createServer = (config) => {
                 <style>
                   * {
                     box-sizing: border-box;
+                    font-family: Helvetica, Arial, sans-serif;
                     margin: 0;
                     padding: 0;
                   }

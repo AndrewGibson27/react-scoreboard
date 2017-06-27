@@ -4,16 +4,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import Slider from 'react-slick';
+import styled from 'styled-components';
 
 import ScoreListItem from '../components/ScoreListItem';
 import loadScores from '../actions';
 import { selectScores } from '../reducer';
+import { LOAD_SCORES_REQUEST } from '../../../constants';
 import {
+  Block,
   ErrorMessage,
   Loader,
 } from '../../../sharedStyles';
 
 const INTERVAL = 30000;
+
+const StyledSlider = styled(Slider)`
+  background-color: #DCDCDC;
+  padding: 25px 15px;
+`;
 
 function shouldFetchScores({ getState }) {
   return getState().scores.data.length === 0;
@@ -36,12 +44,22 @@ const mapDispatchToProps = dispatch => ({
   onInterval: () => {
     dispatch(loadScores());
   },
+
+  setLoading: () => {
+    dispatch({
+      type: LOAD_SCORES_REQUEST,
+    });
+  },
 });
 
 class ScoreListPage extends Component {
   componentDidMount() {
     setInterval(() => {
-      this.props.onInterval();
+      this.props.setLoading();
+
+      setTimeout(() => {
+        this.props.onInterval();
+      }, 2000);
     }, INTERVAL);
   }
 
@@ -57,7 +75,7 @@ class ScoreListPage extends Component {
     };
 
     return (
-      <div>
+      <Block>
         <Helmet title="React Scoreboard" />
 
         {scores.error &&
@@ -67,17 +85,17 @@ class ScoreListPage extends Component {
 
         {!scores.error &&
           <Loader isLoading={scores.isLoading}>
-            <Slider {...settings}>
+            <StyledSlider {...settings}>
               {scores.data.map(score =>
                 <div key={score.id}>
                   <ScoreListItem score={score} />
                 </div>
               )}
-            </Slider>
+            </StyledSlider>
           </Loader>}
 
         {this.props.children}
-      </div>
+      </Block>
     );
   }
 }
@@ -94,6 +112,7 @@ ScoreListPage.propTypes = {
     lastUpdated: PropTypes.string.isRequired,
   }).isRequired,
   onInterval: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
   children: PropTypes.element,
 };
 

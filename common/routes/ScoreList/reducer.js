@@ -13,7 +13,6 @@ export default function scores(state = initialState, action) {
       return {
         ...state,
         isLoading: true,
-        error: false,
       };
     case types.LOAD_SCORES_SUCCESS:
       return {

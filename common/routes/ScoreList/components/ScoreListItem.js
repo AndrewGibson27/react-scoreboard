@@ -3,20 +3,44 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 
+import { Clearfix } from '../../../sharedStyles';
+
 const Item = styled.div`
-  padding: 10px;
-  background-color: #DCDCDC;
-  width: 200px;
+  background-color: #FFF;
+  width: 175px;
+`;
+
+const Stripe = Clearfix.extend`
+  background-color: #191944;
+  color: #FFF;
+  padding: 5px;
+
+  p {
+    font-size: 12px;
+    text-transform: uppercase;
+
+    &:first-child {
+      float: left;
+    }
+
+    &:last-child {
+      float: right;
+    }
+  }
+`;
+
+const Table = styled.table`
+  padding: 5px 10px;
 `;
 
 const ScoreListItem = ({ score }) => (
   <Item>
-    <div>
+    <Stripe>
       <p>{score.quarter}</p>
-      {score.isFinal && <p>Final</p>}
-      {!score.isFinal && <p>{score.timeLeft}</p>}
-    </div>
-    <table>
+      {score.final && <p>Final</p>}
+      {!score.final && <p>{score.timeLeft}</p>}
+    </Stripe>
+    <Table>
       <tbody>
         <tr>
           <td>{score.homeTeam}</td>
@@ -27,7 +51,7 @@ const ScoreListItem = ({ score }) => (
           <td>{score.awayScore}</td>
         </tr>
       </tbody>
-    </table>
+    </Table>
     <Link to={`/scores/${score.id}`}>Details</Link>
   </Item>
 );
