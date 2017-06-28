@@ -110,11 +110,9 @@ export const createServer = (config) => {
                 ${head.title.toString()}
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="shortcut icon" href="/favicon.ico">
-                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+                ${__PROD__ ? `<link rel="stylesheet" type="text/css" href="${assets.main.css}">` : ''}
                 ${head.meta.toString()}
                 ${head.link.toString()}
-                ${css}
                 <style>
                   * {
                     box-sizing: border-box;
@@ -123,6 +121,7 @@ export const createServer = (config) => {
                     padding: 0;
                   }
                 </style>
+                ${css}
               </head>
               <body>
                 <div id="root">${html}</div>

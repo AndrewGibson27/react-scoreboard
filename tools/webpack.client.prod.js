@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const CONFIG = require('./webpack.base');
 
@@ -15,6 +16,8 @@ module.exports = {
       'react-router',
       'redux',
       'react-redux',
+      'slick-carousel',
+      'react-slick',
     ],
   },
   output: {
@@ -47,6 +50,7 @@ module.exports = {
       },
     }),
     new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('styles.css', { allChunks: true }),
   ],
   module: {
     loaders: [
@@ -58,6 +62,11 @@ module.exports = {
           presets: ['es2015', 'react', 'stage-0', 'react-optimize'],
         },
         exclude: /(node_modules)/,
+      },
+      {
+        test: /\.css$/,
+        include: /(node_modules|common)/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
       },
     ],
   },

@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+
 const CONFIG = require('./webpack.base');
 
 const { CLIENT_ENTRY, CLIENT_OUTPUT } = CONFIG;
@@ -17,6 +18,8 @@ module.exports = {
       'react-router',
       'redux',
       'react-redux',
+      'slick-carousel',
+      'react-slick',
     ],
   },
   output: {
@@ -32,6 +35,11 @@ module.exports = {
         loader: 'babel',
         exclude: /(node_modules|server)/,
         presets: ['es2015', 'react', 'stage-0'],
+      },
+      {
+        test: /\.css$/,
+        include: /(node_modules|common)/,
+        loader: 'style-loader!css-loader',
       },
     ],
   },

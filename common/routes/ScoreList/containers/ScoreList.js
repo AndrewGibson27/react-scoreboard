@@ -16,12 +16,20 @@ import {
   Loader,
 } from '../../../sharedStyles';
 
-const INTERVAL = 30000;
+/**
+  Hack so we don't have to run
+  server/index.js through Webpack
+  during development.
 
-const StyledSlider = styled(Slider)`
-  background-color: #DCDCDC;
-  padding: 25px 15px;
-`;
+  We're not including slick-theme.css
+  so we don't have to deal w/ Webpack's
+  file-loader.
+*/
+if (typeof window !== 'undefined') {
+  require('slick-carousel/slick/slick.css');
+}
+
+const INTERVAL = 30000;
 
 function shouldFetchScores({ getState }) {
   return getState().scores.data.length === 0;
@@ -122,3 +130,8 @@ export default provideHooks(redial)(
     mapDispatchToProps,
   )(ScoreListPage),
 );
+
+const StyledSlider = styled(Slider)`
+  background-color: #DCDCDC;
+  padding: 25px 15px;
+`;
