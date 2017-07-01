@@ -10,11 +10,8 @@ import ScoreListItem from '../components/ScoreListItem';
 import loadScores from '../actions';
 import { selectScores } from '../reducer';
 import { LOAD_SCORES_REQUEST } from '../../../constants';
-import {
-  Block,
-  ErrorMessage,
-  Loader,
-} from '../../../sharedStyles';
+import sliderSettings from '../vendor/sliderSettings';
+import { Block, ErrorMessage, Loader } from '../../../sharedStyles';
 
 /**
   Hack so we don't have to run
@@ -49,7 +46,7 @@ const mapStateToProps = state => (
 );
 
 const mapDispatchToProps = dispatch => ({
-  onInterval: () => {
+  reloadScores: () => {
     dispatch(loadScores());
   },
 
@@ -66,21 +63,13 @@ class ScoreListPage extends Component {
       this.props.setLoading();
 
       setTimeout(() => {
-        this.props.onInterval();
+        this.props.reloadScores();
       }, 2000);
     }, INTERVAL);
   }
 
   render() {
-    const { scores } = this.props;
-    const settings = {
-      dots: false,
-      draggable: true,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 6,
-      slidesToScroll: 1,
-    };
+    const { scores, children } = this.props;
 
     return (
       <Block>
@@ -92,17 +81,17 @@ class ScoreListPage extends Component {
           </ErrorMessage>}
 
         {!scores.error &&
-          <Loader isLoading={scores.isLoading}>
-            <StyledSlider {...settings}>
+          <SliderOuter isLoading={scores.isLoading}>
+            <StyledSlider {...sliderSettings}>
               {scores.data.map(score =>
                 <div key={score.id}>
                   <ScoreListItem score={score} />
                 </div>
               )}
             </StyledSlider>
-          </Loader>}
+          </SliderOuter>}
 
-        {this.props.children}
+        {children}
       </Block>
     );
   }
@@ -119,10 +108,11 @@ ScoreListPage.propTypes = {
     error: PropTypes.bool.isRequired,
     lastUpdated: PropTypes.string.isRequired,
   }).isRequired,
-  onInterval: PropTypes.func.isRequired,
+  reloadScores: PropTypes.func.isRequired,
   setLoading: PropTypes.func.isRequired,
   children: PropTypes.element,
 };
+
 
 export default provideHooks(redial)(
   connect(
@@ -131,7 +121,39 @@ export default provideHooks(redial)(
   )(ScoreListPage),
 );
 
+const SliderOuter = Loader.extend`
+  background-color: #d8d8d8;
+`;
+
 const StyledSlider = styled(Slider)`
-  background-color: #DCDCDC;
-  padding: 25px 15px;
+  margin: 0 auto;
+  max-width: calc(100% - 90px);
+  padding: 20px 0;
+
+  .slick-arrow {
+    background-color: #2e9bad;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    color: #FFF;
+    display: block;
+    font-size: 16px;
+    line-height: 35px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+  }
+
+  .slick-disabled {
+    opacity: 0;
+  }
+
+  .slick-prev {
+    left: -40px;
+  }
+
+  .slick-next {
+    right: -40px;
+  }
 `;
