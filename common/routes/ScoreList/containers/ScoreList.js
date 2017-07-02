@@ -73,7 +73,7 @@ class ScoreListPage extends Component {
 
     return (
       <Block>
-        <Helmet title="React Scoreboard" />
+        <Helmet title="All Scores" />
 
         {scores.error &&
           <ErrorMessage>
