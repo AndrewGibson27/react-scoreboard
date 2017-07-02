@@ -18,7 +18,7 @@ function storeToken(token) {
     try {
       fs.mkdirSync(GOOGLE_TOKEN_DIR);
     } catch (err) {
-      if (err.code != 'EEXIST') {
+      if (err.code !== 'EEXIST') {
         throw err;
       }
     }
