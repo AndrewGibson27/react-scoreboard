@@ -82,13 +82,13 @@ class ScoreListPage extends Component {
 
         {!scores.error &&
           <SliderOuter isLoading={scores.isLoading}>
-            <StyledSlider {...sliderSettings}>
+            <SliderStyled {...sliderSettings}>
               {scores.data.map(score =>
                 <div key={score.id}>
                   <ScoreListItem score={score} />
                 </div>
               )}
-            </StyledSlider>
+            </SliderStyled>
           </SliderOuter>}
 
         {children}
@@ -125,7 +125,7 @@ const SliderOuter = Loader.extend`
   background-color: #d8d8d8;
 `;
 
-const StyledSlider = styled(Slider)`
+const SliderStyled = styled(Slider)`
   margin: 0 auto;
   max-width: calc(100% - 90px);
   padding: 20px 0;

@@ -12,7 +12,6 @@ export default function currentScore(state = initialState, action) {
       return {
         ...state,
         isLoading: true,
-        error: false,
       };
     case types.LOAD_SCORE_SUCCESS:
       return {

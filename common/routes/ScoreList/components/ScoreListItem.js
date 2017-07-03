@@ -25,7 +25,7 @@ const ScoreListItem = ({ score }) => (
           </tr>
         </tbody>
       </Table>
-      <StyledLink to={`/scores/${score.id}`}>Details &rarr;</StyledLink>
+      <LinkStyled to={`/scores/${score.id}`}>Details &rarr;</LinkStyled>
     </ItemInner>
   </Item>
 );
@@ -113,7 +113,7 @@ const Table = styled.table`
   }
 `;
 
-const StyledLink = styled(Link)`
+const LinkStyled = styled(Link)`
   display: block;
   font-size: 11px;
   color: #2e9bad;

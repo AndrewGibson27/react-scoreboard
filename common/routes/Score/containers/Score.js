@@ -2,13 +2,11 @@ import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import loadScore from '../actions';
 import { selectCurrentScore } from '../reducer';
-import {
-  ErrorMessage,
-  Loader,
-} from '../../../sharedStyles';
+import { ErrorMessage, Loader, Block } from '../../../sharedStyles';
 
 const redial = {
   fetch: ({ store: { dispatch }, params: { id } }) => dispatch(loadScore(id)),
@@ -19,7 +17,7 @@ const mapStateToProps = state => (
 );
 
 const ScorePage = ({ currentScore }) => (
-  <div>
+  <Block>
     {currentScore.error &&
       <ErrorMessage>
         No scores are available at this time.
@@ -27,24 +25,24 @@ const ScorePage = ({ currentScore }) => (
 
     {!currentScore.error &&
       <Loader isLoading={currentScore.isLoading}>
-        <table>
+        <Score>
           <thead>
             <tr>
-              <th>&nbsp;</th>
-              <th>{currentScore.data.awayTeam}</th>
-              <th>{currentScore.data.homeTeam}</th>
+              <td />
+              <th scope="col">{currentScore.data.homeTeam}</th>
+              <th scope="col">{currentScore.data.awayTeam}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>High scorer</td>
-              <td>{currentScore.data.awayHighScorer}</td>
+              <th scope="row">High scorer</th>
               <td>{currentScore.data.homeHighScorer}</td>
+              <td>{currentScore.data.awayHighScorer}</td>
             </tr>
           </tbody>
-        </table>
+        </Score>
       </Loader>}
-  </div>
+  </Block>
 );
 
 ScorePage.propTypes = {
@@ -56,3 +54,36 @@ ScorePage.propTypes = {
 };
 
 export default provideHooks(redial)(connect(mapStateToProps)(ScorePage));
+
+const Score = styled.table`
+  border-collapse: collapse;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 0 15px;
+  table-layout: fixed;
+  width: 95%;
+
+  thead {
+    tr:first-child {
+      th {
+        width: 33%;
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  th {
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 10px;
+    text-align: center;
+  }
+
+  tbody {
+    tr:nth-child(odd) {
+      background-color: #d8d8d8;
+    }
+  }
+`;

@@ -33,7 +33,6 @@ router.get('/scores', (req, res) => {
       lastUpdated: getTimestamp(),
     });
   }, (err) => {
-    // TODO: Distinguish error types
     logger.log('info', err);
     res.status(500).json({
       error: 'unexpected error',

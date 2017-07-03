@@ -18,7 +18,7 @@ const NextArrow = (props) => {
 
 const sliderSettings = {
   dots: false,
-  draggable: false,
+  draggable: true,
   infinite: false,
   prevArrow: <PrevArrow />,
   nextArrow: <NextArrow />,
