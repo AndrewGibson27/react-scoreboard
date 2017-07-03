@@ -63,6 +63,7 @@ function authorizeApp(credentials, callback) {
   const redirectURL = credentials.installed.redirect_uris[0];
   const auth = new GoogleAuth();
   const oauth2Client = new auth.OAuth2(clientID, clientSecret, redirectURL);
+  console.log(oauth2Client);
 
   fs.readFile(GOOGLE_TOKEN_PATH, (err, token) => {
     if (err) {

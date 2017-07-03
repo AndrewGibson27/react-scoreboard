@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "description": "Isomorphic React Starter with Redux, React Router, Redial, Aphrodite, Express, Webpack.",
   "scripts": {
+    "token": "node server/auth/generateToken.js",
     "start": "cross-env NODE_ENV=development node -r \"babel-register\" ./server",
     "start:prod": "cross-env NODE_ENV=production node ./build/server.js && npm run scrape:prod",
     "scrape": "cross-env NODE_ENV=development node -r \"babel-register\" ./server/scrape/scrape",

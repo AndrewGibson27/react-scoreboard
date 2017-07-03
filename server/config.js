@@ -1,22 +1,35 @@
-import path from 'path';
+const path = require('path');
 
-/**
-  You probably want to make the Google paths different
-  in production so they're not publicly visible.
-*/
+require('dotenv').config();
+
+const {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_PROJECT_ID,
+  GOOGLE_AUTH_URI,
+  GOOGLE_TOKEN_URI,
+  GOOGLE_AUTH_PROVIDER_CERT_URL,
+  GOOGLE_CLIENT_SECRET,
+  GOOGLE_REDIRECT_URIS,
+  GOOGLE_SPREADSHEET_KEY,
+  GOOGLE_SCOPES,
+} = process.env;
 
 const config = {
   nodeEnv: process.env.NODE_ENV,
   webConcurrency: process.env.WEB_CONCURRENCY || 1,
   port: process.env.PORT || 5000,
   timeout: 29000,
-  googleScopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-  googleTokenDir: process.cwd(),
-  googleTokenPath: path.join(process.cwd(), 'sheets.googleapis.com-react-scoreboard-oauth-other.json'),
-  googleClientSecretDir: process.cwd(),
-  googleClientSecretPath: path.join(process.cwd(), 'client_secret.json'),
-  googleSpreadsheetKey: '1qn7Kxu4vnwWeP6mxJrCc8vAVHg6u4pZbFcDn2O9qtqc',
   scraperInterval: '* * * * *',
+  googleClientId: GOOGLE_CLIENT_ID,
+  googleProjectId: GOOGLE_PROJECT_ID,
+  googleAuthURI: GOOGLE_AUTH_URI,
+  googleTokenURI: GOOGLE_TOKEN_URI,
+  googleAuthProviderCertURL: GOOGLE_AUTH_PROVIDER_CERT_URL,
+  googleClientSecret: GOOGLE_CLIENT_SECRET,
+  googleRedirectURIs: GOOGLE_REDIRECT_URIS.split(' '),
+  googleScopes: GOOGLE_SCOPES.split(' '),
+  googleSpreadsheetKey: GOOGLE_SPREADSHEET_KEY,
+  googleTokenPath: path.join(process.cwd(), 'secret', 'token.json'),
   scoresFilePath: path.join(process.cwd(), 'build', 'scores.json'),
 };
 

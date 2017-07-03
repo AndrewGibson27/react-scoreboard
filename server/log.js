@@ -1,5 +1,5 @@
-import winston from 'winston';
-import path from 'path';
+const winston = require('winston');
+const path = require('path');
 
 /**
   In production, you're probably not going to want
@@ -18,4 +18,4 @@ const logger = new (winston.Logger)({
   ],
 });
 
-export default logger;
+module.exports = logger;
