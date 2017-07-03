@@ -1,7 +1,7 @@
 {
-  "name": "react-production-starter",
-  "version": "0.2.0",
-  "description": "Isomorphic React Starter with Redux, React Router, Redial, Aphrodite, Express, Webpack.",
+  "name": "react-scoreboad",
+  "version": "0.1.0",
+  "description": "A live-updating scoreboard powered by React and a Google spreadsheet",
   "scripts": {
     "token": "node server/auth/generateToken.js",
     "start": "cross-env NODE_ENV=development node -r \"babel-register\" ./server",
@@ -13,15 +13,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jaredpalmer/react-production-starter.git"
+    "url": "https://github.com/andrewgibson27/react-scoreboard"
   },
-  "keywords": [],
-  "author": "jaredpalmer",
+  "keywords": [
+    "react",
+    "scoreboard",
+    "isomorphic",
+    "universal",
+    "redux",
+    "react-router",
+    "google spreadsheet"
+  ],
+  "author": "AndrewGibson27",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jaredpalmer/react-production-starter/issues"
+    "url": "https://github.com/andrewgibson27/react-scoreboard/issues"
   },
-  "homepage": "https://github.com/jaredpalmer/react-production-starter#readme",
   "dependencies": {
     "axios": "^0.15.0",
     "babel-polyfill": "^6.5.0",
