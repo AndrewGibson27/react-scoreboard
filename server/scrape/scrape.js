@@ -2,7 +2,7 @@ import schedule from 'node-schedule';
 import google from 'googleapis';
 import fs from 'fs';
 
-import initAuth from './auth';
+import getAuth from '../auth/getAuth';
 import config from '../config';
 import logger from '../log';
 
@@ -142,5 +142,5 @@ function getScoresFromSpreadsheet(auth) {
 }
 
 schedule.scheduleJob(SCRAPER_INTERVAL, () => {
-  initAuth(getScoresFromSpreadsheet);
+  getAuth(getScoresFromSpreadsheet);
 });
