@@ -58,6 +58,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class ScoreListPage extends Component {
+  static formatLastUpdated(lastUpdated) {
+    const date = new Date(lastUpdated);
+    return date.toLocaleString();
+  }
+
   componentDidMount() {
     setInterval(() => {
       this.props.setLoading();
@@ -70,10 +75,17 @@ class ScoreListPage extends Component {
 
   render() {
     const { scores, children } = this.props;
+    const formattedDate = ScoreListPage.formatLastUpdated(scores.lastUpdated);
 
     return (
-      <Block>
+      <div>
         <Helmet title="All Scores" />
+
+        <Block>
+          <Updated>
+            Last updated: {formattedDate}
+          </Updated>
+        </Block>
 
         {scores.error &&
           <ErrorMessage>
@@ -81,18 +93,20 @@ class ScoreListPage extends Component {
           </ErrorMessage>}
 
         {!scores.error &&
-          <SliderOuter isLoading={scores.isLoading}>
-            <SliderStyled {...sliderSettings}>
-              {scores.data.map(score =>
-                <div key={score.id}>
-                  <ScoreListItem score={score} />
-                </div>
-              )}
-            </SliderStyled>
-          </SliderOuter>}
+          <Block>
+            <SliderOuter isLoading={scores.isLoading}>
+              <SliderStyled {...sliderSettings}>
+                {scores.data.map(score =>
+                  <div key={score.id}>
+                    <ScoreListItem score={score} />
+                  </div>
+                )}
+              </SliderStyled>
+            </SliderOuter>
+          </Block>}
 
         {children}
-      </Block>
+      </div>
     );
   }
 }
@@ -120,6 +134,10 @@ export default provideHooks(redial)(
     mapDispatchToProps,
   )(ScoreListPage),
 );
+
+const Updated = styled.div`
+  text-align: center;
+`;
 
 const SliderOuter = Loader.extend`
   background-color: #d8d8d8;

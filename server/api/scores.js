@@ -22,8 +22,7 @@ function getOneScore(scores, id) {
 }
 
 function getTimestamp() {
-  const now = new Date();
-  return now.toISOString();
+  return new Date();
 }
 
 router.get('/scores', (req, res) => {
