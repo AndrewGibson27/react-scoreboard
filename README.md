@@ -45,6 +45,10 @@ This project is based on the `react-production` boilerplate, whose code lives in
 + `npm run build`: Build for production
 + `npm run clean`: Empty out `build/` and `public/assets/`
 
+## Weird stuff
++ The `build/` subdirectory has a `.gitkeep` file inside so we can version control the directory itself but not the files inside. This is necessary so Node can write files to this directory.
++ Don't run the application and the scraper concurrently (for example, `npm run scrape & npm start`). Some cursory experimentation indicates this can cause wonkiness due to port overlap. Instead, I'd recommend doing `npm start` in one shell tab, then `npm run scrape` in another.
+
 ## What's next
 + Unit tests
 + React Router 4.x
