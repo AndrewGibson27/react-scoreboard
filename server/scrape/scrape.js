@@ -142,5 +142,6 @@ function getScoresFromSpreadsheet(auth) {
 }
 
 schedule.scheduleJob(SCRAPER_INTERVAL, () => {
-  getAuth(getScoresFromSpreadsheet);
+  const auth = getAuth();
+  getScoresFromSpreadsheet(auth);
 });

@@ -12,7 +12,16 @@ const {
   GOOGLE_REDIRECT_URIS,
   GOOGLE_SPREADSHEET_KEY,
   GOOGLE_SCOPES,
+  GOOGLE_ACCESS_TOKEN,
+  GOOGLE_REFRESH_TOKEN,
+  GOOGLE_TOKEN_TYPE,
+  GOOGLE_TOKEN_EXPIRY,
 } = process.env;
+
+/**
+  You probably want to change the secret/ subdirectory
+  to something less conspicuous in production.
+*/
 
 const config = {
   nodeEnv: process.env.NODE_ENV,
@@ -29,6 +38,10 @@ const config = {
   googleRedirectURIs: GOOGLE_REDIRECT_URIS.split(' '),
   googleScopes: GOOGLE_SCOPES.split(' '),
   googleSpreadsheetKey: GOOGLE_SPREADSHEET_KEY,
+  googleAccessToken: GOOGLE_ACCESS_TOKEN,
+  googleRefreshToken: GOOGLE_REFRESH_TOKEN,
+  googleTokenType: GOOGLE_TOKEN_TYPE,
+  googleTokenExpiry: GOOGLE_TOKEN_EXPIRY,
   googleTokenPath: path.join(process.cwd(), 'secret', 'token.json'),
   scoresFilePath: path.join(process.cwd(), 'build', 'scores.json'),
 };
