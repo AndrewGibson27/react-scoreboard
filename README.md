@@ -19,21 +19,21 @@ This project is based on the `react-production` boilerplate, whose code lives in
 5. Follow steps A-H under "Step 1" of this Node.js + Google Spreadsheets [tutorial](https://developers.google.com/sheets/api/quickstart/nodejs). Instead of putting `client_secret.json` in the root, put it in `secret/`.
 6. Paste the following into `.env`. All of the values can be found in `client_secret.json` except for `GOOGLE_SPREADSHEET_KEY` and `GOOGLE_SCOPES`.
 
-+ `GOOGLE_SPREADSHEET_KEY`: Can be found in your spreadsheet's URL
-+ `GOOGLE_CLIENT_ID`
-+ `GOOGLE_PROJECT_ID`
-+ `GOOGLE_AUTH_URI`
-+ `GOOGLE_TOKEN_URI`
-+ `GOOGLE_AUTH_PROVIDER_CERT_URL`
-+ `GOOGLE_CLIENT_SECRET`
-+ `GOOGLE_REDIRECT_URIS`: In `client_secret.json`, this is an array with multiple elements. Make sure to include all of them here, separated by a spaces.
-+ `GOOGLE_SCOPES`: Set to `https://www.googleapis.com/auth/spreadsheets.readonly`
++ **`GOOGLE_SPREADSHEET_KEY`**: Can be found in your spreadsheet's URL
++ **`GOOGLE_CLIENT_ID`**
++ **`GOOGLE_PROJECT_ID`**
++ **`GOOGLE_AUTH_URI`**
++ **`GOOGLE_TOKEN_URI`**
++ **`GOOGLE_AUTH_PROVIDER_CERT_URL`**
++ **`GOOGLE_CLIENT_SECRET`**
++ **`GOOGLE_REDIRECT_URIS`**: In `client_secret.json`, this is an array with multiple elements. Make sure to include all of them here, separated by a spaces.
++ **`GOOGLE_SCOPES`**: Set to `https://www.googleapis.com/auth/spreadsheets.readonly`
 
-7. Run `npm run token`. This will put `token.json` into `secret/`. Open it and fill in `.env` with the remaining values found in the file:
-+ `GOOGLE_ACCESS_TOKEN`
-+ `GOOGLE_REFRESH_TOKEN`
-+ `GOOGLE_TOKEN_TYPE`
-+ `GOOGLE_TOKEN_EXPIRY`
+7. Execute `npm run token`. This will put `token.json` into `secret/`. Open it and fill in `.env` with the remaining values found in the file:
++ **`GOOGLE_ACCESS_TOKEN`**
++ **`GOOGLE_REFRESH_TOKEN`**
++ **`GOOGLE_TOKEN_TYPE`**
++ **`GOOGLE_TOKEN_EXPIRY`**
 8. You're ready. These environment variables are pulled into `server/config.js` and dispersed into the application logic from there.
 
 ## Commands
