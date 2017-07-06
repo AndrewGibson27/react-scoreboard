@@ -1,5 +1,5 @@
 {
-  "name": "react-scoreboad",
+  "name": "react-scoreboard",
   "version": "0.1.0",
   "description": "A live-updating scoreboard powered by React and a Google spreadsheet",
   "scripts": {
@@ -9,7 +9,7 @@
     "scrape": "cross-env NODE_ENV=development node -r \"babel-register\" ./server/scrape/scrape",
     "scrape:prod": "cross-env NODE_ENV=production node ./build/scrape.js",
     "build": "webpack -p --config ./tools/webpack.client.prod.js && webpack -p --config ./tools/webpack.server.prod.js && webpack -p --config ./tools/webpack.scrape.prod.js",
-    "clean": "rm -rf build"
+    "clean": "rm -rf build && rm -rf public/assets/"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,9 @@
     "universal",
     "redux",
     "react-router",
-    "google spreadsheet"
+    "google spreadsheet",
+    "redial",
+    "styled components"
   ],
   "author": "AndrewGibson27",
   "license": "MIT",
@@ -31,6 +33,7 @@
   },
   "dependencies": {
     "axios": "^0.15.0",
+    "babel-eslint": "^7.2.3",
     "babel-polyfill": "^6.5.0",
     "body-parser": "^1.14.2",
     "chalk": "^1.1.3",
