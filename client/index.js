@@ -8,6 +8,7 @@ import browserHistory from 'react-router/lib/browserHistory';
 import { Provider } from 'react-redux';
 
 import { configureStore } from '../common/store';
+import createRoutes from '../common/routes/root';
 
 const initialState = window.INITIAL_STATE || {};
 const store = configureStore(initialState);
@@ -15,7 +16,6 @@ const store = configureStore(initialState);
 const render = () => {
   const { pathname, search, hash } = window.location;
   const location = `${pathname}${search}${hash}`;
-  const createRoutes = require('../common/routes/root').default;
   const routes = createRoutes(store);
 
   match({ routes, location }, () => {

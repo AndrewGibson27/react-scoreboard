@@ -23,13 +23,15 @@ import webpackConfig from '../tools/webpack.client.dev';
 import { compileDev, startDev } from '../tools/dx';
 import { configureStore } from '../common/store';
 import createRoutes from '../common/routes/root';
+import scoresAPI from './api/scores';
+
+const assets = require('../assets.json');
 
 export const createServer = (config) => {
   const __PROD__ = config.nodeEnv === 'production';
   const __TEST__ = config.nodeEnv === 'test';
 
   const app = express();
-  let assets = null;
   app.disable('x-powered-by');
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,38 +41,33 @@ export const createServer = (config) => {
     app.use(helmet());
     app.use(hpp());
     app.use(compression());
-    if (__PROD__) {
-      assets = require('../assets.json');
-    }
   } else {
     app.use(morgan('dev'))
     const compiler = compileDev((webpack(webpackConfig)), config.port);
     app.use(webpackDevMiddleware(compiler, {
       quiet: true,
       watchOptions: {
-        ignored: /node_modules/
-      }
+        ignored: /node_modules/,
+      },
     }));
     app.use(webpackHotMiddleware(compiler, { log: console.log }));
   }
 
   app.use(express.static('public'));
-  app.use('/api', require('./api/scores').default);
+  app.use('/api', scoresAPI);
 
   app.get('*', (req, res) => {
     const store = configureStore({
       sourceRequest: {
         protocol: req.headers['x-forwarded-proto'] || req.protocol,
-        host: req.headers.host
-      }
+        host: req.headers.host,
+      },
     });
     const routes = createRoutes(store);
     const history = createMemoryHistory(req.originalUrl);
-    const { dispatch } = store;
 
     match({ routes, history }, (err, redirectLocation, renderProps) => {
       if (err) {
-        console.error(err);
         return res.status(500).send('Internal server error');
       }
 
@@ -150,17 +147,17 @@ export const createServer = (config) => {
         `Content-Length: ${message.length}`,
         'Connection: close',
         '',
-        message
+        message,
       ].join(`\r\n`));
     });
   }
 
-  return server
-}
+  return server;
+};
 
 
 export const startServer = (serverConfig) => {
-  const config =  {...DefaultServerConfig, ...serverConfig};
+  const config = { ...DefaultServerConfig, ...serverConfig };
   const server = createServer(config);
   server.listen(config.port, (err) => {
     if (config.nodeEnv === 'production' || config.nodeEnv === 'test') {
@@ -170,12 +167,12 @@ export const startServer = (serverConfig) => {
       startDev(config.port, err);
     }
   });
-}
+};
 
 if (require.main === module) {
   throng({
-    start: (id) => startServer({ id }),
+    start: id => startServer({ id }),
     workers: process.env.WEB_CONCURRENCY || 1,
-    lifetime: Infinity
+    lifetime: Infinity,
   });
 }
