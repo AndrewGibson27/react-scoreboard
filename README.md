@@ -50,6 +50,7 @@ This project is based on the `react-production` boilerplate, whose code lives in
 + Don't run the application and the scraper concurrently (for example, `npm run scrape & npm start`). Some cursory experimentation indicates this can cause wonkiness due to port overlap. Instead, I'd recommend doing `npm start` in one shell tab, then `npm run scrape` in another.
 
 ## What's next
++ Non-horrible date formatting
 + Unit tests
 + React Router 4.x
 + Better styles

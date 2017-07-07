@@ -60,7 +60,7 @@ const mapDispatchToProps = dispatch => ({
 class ScoreListPage extends Component {
   static formatLastUpdated(lastUpdated) {
     const date = new Date(lastUpdated);
-    return date.toLocaleString();
+    return date.toISOString();
   }
 
   componentDidMount() {
