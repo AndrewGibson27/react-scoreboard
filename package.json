@@ -9,8 +9,7 @@
     "scrape": "cross-env NODE_ENV=development node -r \"babel-register\" ./server/scrape/scrape",
     "scrape:prod": "cross-env NODE_ENV=production node ./build/scrape.js",
     "build": "webpack -p --config ./tools/webpack.client.prod.js && webpack -p --config ./tools/webpack.server.prod.js && webpack -p --config ./tools/webpack.scrape.prod.js",
-    "clean": "rm -rf build && rm -rf public/assets/",
-    "lint": "eslint --fix ./common/routes/NotFound/index.js"
+    "clean": "rm -rf build && rm -rf public/assets/"
   },
   "repository": {
     "type": "git",
