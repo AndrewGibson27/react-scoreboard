@@ -1,34 +1,68 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import styled, { keyframes } from 'styled-components';
 
 import { Clearfix } from '../../../sharedStyles';
 
-const ScoreListItem = ({ score }) => (
-  <Item didJustUpdate={score.didJustUpdate}>
-    <Stripe>
-      <p>{score.quarter}</p>
-      {score.final && <p>Final</p>}
-      {!score.final && <p>{score.timeLeft}</p>}
-    </Stripe>
-    <ItemInner>
-      <Table>
-        <tbody>
-          <tr>
-            <td>{score.homeTeam}</td>
-            <td>{score.homeScore}</td>
-          </tr>
-          <tr>
-            <td>{score.awayTeam}</td>
-            <td>{score.awayScore}</td>
-          </tr>
-        </tbody>
-      </Table>
-      <LinkStyled to={`/scores/${score.id}`}>Details &rarr;</LinkStyled>
-    </ItemInner>
-  </Item>
-);
+export default class ScoreListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      didJustUpdate: false,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { didJustUpdate: nextDidJustUpdate } = nextProps.score;
+    const { didJustUpdate: currDidJustUpdate } = this.props.score;
+
+    if (nextDidJustUpdate && !currDidJustUpdate) {
+      this.setState({ didJustUpdate: true });
+    } else {
+      this.setState({ didJustUpdate: false });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.state.didJustUpdate) {
+      setTimeout(() => {
+        this.setState({
+          didJustUpdate: false,
+        });
+      }, 5000);
+    }
+  }
+
+  render() {
+    const { score } = this.props;
+
+    return (
+      <Item didJustUpdate={this.state.didJustUpdate}>
+        <Stripe>
+          <p>{score.quarter}</p>
+          {score.final && <p>Final</p>}
+          {!score.final && <p>{score.timeLeft}</p>}
+        </Stripe>
+        <ItemInner>
+          <Table>
+            <tbody>
+              <tr>
+                <td>{score.homeTeam}</td>
+                <td>{score.homeScore}</td>
+              </tr>
+              <tr>
+                <td>{score.awayTeam}</td>
+                <td>{score.awayScore}</td>
+              </tr>
+            </tbody>
+          </Table>
+          <LinkStyled to={`/scores/${score.id}`}>Details &rarr;</LinkStyled>
+        </ItemInner>
+      </Item>
+    );
+  }
+}
 
 ScoreListItem.propTypes = {
   score: PropTypes.shape({
@@ -43,8 +77,6 @@ ScoreListItem.propTypes = {
     final: PropTypes.bool.isRequired,
   }).isRequired,
 };
-
-export default ScoreListItem;
 
 const highlight = keyframes`
   0% {
@@ -63,7 +95,7 @@ const highlight = keyframes`
 const Item = styled.div`
   background-color: #FFF;
   width: 175px;
-  animation: ${props => (props.didJustUpdate ? `${highlight} 5s 1` : '')};
+  ${props => (props.didJustUpdate ? `animation: ${highlight} 5s 1;` : '')}
 `;
 
 const Stripe = Clearfix.extend`

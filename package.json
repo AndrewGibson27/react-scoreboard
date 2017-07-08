@@ -5,7 +5,7 @@
   "scripts": {
     "token": "node server/auth/generateToken.js",
     "start": "cross-env NODE_ENV=development node -r \"babel-register\" ./server",
-    "start:prod": "cross-env NODE_ENV=production node ./build/server.js && npm run scrape:prod",
+    "start:prod": "cross-env NODE_ENV=production node ./build/server.js",
     "scrape": "cross-env NODE_ENV=development node -r \"babel-register\" ./server/scrape/scrape",
     "scrape:prod": "cross-env NODE_ENV=production node ./build/scrape.js",
     "build": "webpack -p --config ./tools/webpack.client.prod.js && webpack -p --config ./tools/webpack.server.prod.js && webpack -p --config ./tools/webpack.scrape.prod.js",
