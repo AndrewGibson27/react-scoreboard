@@ -28,7 +28,7 @@ const config = {
   webConcurrency: process.env.WEB_CONCURRENCY || 1,
   port: process.env.PORT || 5000,
   timeout: 29000,
-  scraperInterval: '* * * * *',
+  scraperInterval: [0, 20, 40],
   googleClientId: GOOGLE_CLIENT_ID,
   googleProjectId: GOOGLE_PROJECT_ID,
   googleAuthURI: GOOGLE_AUTH_URI,

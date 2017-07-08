@@ -141,6 +141,8 @@ function getScoresFromSpreadsheet(auth) {
   });
 }
 
-schedule.scheduleJob(SCRAPER_INTERVAL, () => {
+const rule = new schedule.RecurrenceRule();
+rule.second = SCRAPER_INTERVAL;
+schedule.scheduleJob(rule, () => {
   getScoresFromSpreadsheet(getAuth());
 });
