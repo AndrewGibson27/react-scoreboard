@@ -48,7 +48,7 @@ This project is based on the `react-production` boilerplate, whose code lives in
 ## Quirks
 + The `build/` subdirectory has a `.gitkeep` file inside so we can version control the directory itself but not the files inside. This is necessary so Node can write files to this directory.
 + Don't run the application and the scraper concurrently (for example, `npm run scrape & npm start`). Some cursory experimentation indicates this can cause wonkiness due to port overlap. Instead, I'd recommend doing `npm start` in one shell tab, then `npm run scrape` in another.
-+ By default, the scraper runs every 20 seconds while the application fetches new scores every 40 seconds. If the timing between the two processes isn't synced correctly, the score cards won't always get the CSS animation indicating an update happened.
++ By default, the scraper runs every 20 seconds while the application fetches new scores every 30 seconds. If the timing between the two processes isn't synced correctly, the score cards won't always get the CSS animation indicating an update happened.
 
 The interval for fetching new scores in the `ScoresListPage` should always be longer than the scraper interval in `server/scrape/scrape.js` to ensure the "updated" CSS class gets properly applied to each score card.
 
